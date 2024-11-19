@@ -26,11 +26,17 @@ export const writeJsonFile = async (filepath, filename, content) => {
     if (!content) throw new Error("El contenido no fue proporcionado.");
 
     try {
-        await fs.promises.writeFile(path.join(filepath, filename), JSON.stringify(content, null, "\t"), "utf8");
+        const fullPath = path.join(filepath, filename);
+        console.log(`Escribiendo en: ${fullPath}`);  // Muestra la ruta completa
+        console.log(`Contenido a escribir:`, content);  // Muestra los datos que se intentan guardar
+        await fs.promises.writeFile(fullPath, JSON.stringify(content, null, "\t"), "utf8");
     } catch (error) {
+        console.error(`Error al escribir en el archivo ${filename}:`, error);
         throw new Error(`Error al escribir en el archivo ${filename}`);
     }
 };
+
+
 
 // Elimina un archivo
 export const deleteFile = async (filepath, filename) => {
